@@ -673,4 +673,11 @@ def predict():
         return jsonify({'error': str(e)})
 
 if __name__ == '__main__':
+    # Only use debug mode when running directly (not through Gunicorn)
     app.run(debug=True)
+else:
+    # Configure logging for production
+    import logging
+    gunicorn_logger = logging.getLogger('gunicorn.error')
+    app.logger.handlers = gunicorn_logger.handlers
+    app.logger.setLevel(gunicorn_logger.level)
