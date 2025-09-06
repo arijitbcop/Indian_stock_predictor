@@ -672,6 +672,23 @@ def predict():
     except Exception as e:
         return jsonify({'error': str(e)})
 
+@app.route('/test_curl')
+def test_curl():
+    try:
+        result = subprocess.run(
+            ['curl', '-s', 'https://query1.finance.yahoo.com/v8/finance/chart/ADA'],
+            capture_output=True,
+            text=True,
+            timeout=10
+        )
+        return jsonify({
+            "status": result.returncode,
+            "output": result.stdout,
+            "error": result.stderr
+        })
+    except Exception as e:
+        return jsonify({"error": str(e)})
+
 if __name__ == '__main__':
     # Only use debug mode when running directly (not through Gunicorn)
     app.run(debug=True)
