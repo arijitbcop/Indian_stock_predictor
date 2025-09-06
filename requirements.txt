@@ -2,6 +2,7 @@ setuptools>=65.0.0
 wheel
 build
 flask==2.0.1
+Werkzeug==2.0.3
 numpy==1.26.4
 pandas==1.5.0
 scikit-learn==1.1.3
